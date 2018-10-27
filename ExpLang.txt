@@ -1,0 +1,14 @@
+LANGAGE Idd
+
+  DEC
+    #InOut
+    #TAB
+    #ARITHME
+    int :: X;
+    string :: Y[5];
+  FINDEC
+
+  DEBUT
+    Ab:=Ff;
+  FIN
+
