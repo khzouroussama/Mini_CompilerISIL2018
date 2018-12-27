@@ -1,0 +1,40 @@
+LANGAGE Idd
+{{ 
+	Projet Compil
+	Khezour Mohamed Oussama
+	LArbi Wahib
+	[ISIL3B/2]	
+}}
+  DEC
+    #InOut 
+	#TAB      
+	#ARITHME
+    int::X,Variable,Tmp,C;
+    int::Y[3];
+    float::CONST PI;
+	int::Css;
+
+
+  FINDEC
+  DEBUT
+
+X:=2+2+3*2-3;
+
+While(( Css/(C+2) ) <= 2.4 )
+     Faire
+        EXECUT
+			
+        				Tmp := Css + -5;
+      				IF( 1 != ( C-5) )
+		    		
+      			
+        	Tmp := 0;
+      	
+	Fait
+
+
+FIN
+
+
+
+

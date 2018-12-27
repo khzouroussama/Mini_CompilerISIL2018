@@ -1,0 +1,1610 @@
+Grammar
+
+    0 $accept: s $end
+
+    1 s: mc_lang id mc_dec BIB VAR mc_fdec mc_deb INST mc_fin
+
+    2 BIB: bib_inOut BIB
+    3    | bib_tab BIB
+    4    | bib_arithm BIB
+    5    | %empty
+
+    6 INST: INST_AFF INST
+    7     | BOUCLE INST
+    8     | IF INST
+    9     | INPUT INST
+   10     | OUTPUT INST
+   11     | %empty
+
+   12 INST_AFF: IDF aff EXP ';'
+
+   13 IDF: id
+   14    | id '[' IDF ']'
+   15    | id '[' mc_IntVal ']'
+
+   16 VAL: mc_IntVal
+   17    | mc_ReelVal
+   18    | mc_StringVal
+
+   19 VAR: TYPE mc_vardec VARS ';' VAR
+   20    | TYPE mc_vardec mc_CONST id ';' VAR
+   21    | %empty
+
+   22 VARS: id
+   23     | id '[' mc_IntVal ']'
+   24     | VARS ',' id
+   25     | VARS ',' id '[' mc_IntVal ']'
+
+   26 ALLVARS: ALLVARS ',' EXP
+   27        | EXP
+
+   28 TYPE: mc_int
+   29     | mc_float
+   30     | mc_string
+
+   31 EXP: EXP '+' EXP
+   32    | EXP '-' EXP
+   33    | EXP '*' EXP
+   34    | EXP '/' EXP
+   35    | EXP '>' EXP
+   36    | EXP '<' EXP
+   37    | EXP '=' EXP
+   38    | EXP leOp EXP
+   39    | EXP geOp EXP
+   40    | EXP neOp EXP
+   41    | '-' EXP
+   42    | '(' EXP ')'
+   43    | IDF
+   44    | VAL
+
+   45 @1: %empty
+
+   46 @2: %empty
+
+   47 BOUCLE: mc_While @1 '(' EXP ')' @2 mc_Faire INST mc_Fait
+
+   48 @3: %empty
+
+   49 @4: %empty
+
+   50 IF: mc_EXECUT @3 INST mc_IF @4 '(' EXP ')'
+
+   51 INPUT: mc_input '(' mc_StringVal ')' ';'
+
+   52 OUTPUT: mc_Output '(' ALLVARS ')' ';'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 42 47 50 51 52
+')' (41) 42 47 50 51 52
+'*' (42) 33
+'+' (43) 31
+',' (44) 24 25 26
+'-' (45) 32 41
+'/' (47) 34
+';' (59) 12 19 20 51 52
+'<' (60) 36
+'=' (61) 37
+'>' (62) 35
+'[' (91) 14 15 23 25
+']' (93) 14 15 23 25
+error (256)
+mc_lang (258) 1
+id (259) 1 13 14 15 20 22 23 24 25
+mc_fin (260) 1
+mc_dec (261) 1
+mc_fdec (262) 1
+mc_deb (263) 1
+bib_inOut (264) 2
+bib_tab (265) 3
+bib_arithm (266) 4
+mc_CONST (267) 20
+mc_While (268) 47
+mc_Faire (269) 47
+mc_Fait (270) 47
+mc_EXECUT (271) 50
+mc_IF (272) 50
+mc_IntVal (273) 15 16 23 25
+mc_ReelVal (274) 17
+mc_StringVal (275) 18 51
+mc_int (276) 28
+mc_float (277) 29
+mc_string (278) 30
+mc_vardec (279) 19 20
+mc_input (280) 51
+mc_Output (281) 52
+aff (282) 12
+leOp (283) 38
+geOp (284) 39
+neOp (285) 40
+moin (286)
+
+
+Nonterminals, with rules where they appear
+
+$accept (45)
+    on left: 0
+s (46)
+    on left: 1, on right: 0
+BIB (47)
+    on left: 2 3 4 5, on right: 1 2 3 4
+INST (48)
+    on left: 6 7 8 9 10 11, on right: 1 6 7 8 9 10 47 50
+INST_AFF (49)
+    on left: 12, on right: 6
+IDF (50)
+    on left: 13 14 15, on right: 12 14 43
+VAL (51)
+    on left: 16 17 18, on right: 44
+VAR (52)
+    on left: 19 20 21, on right: 1 19 20
+VARS (53)
+    on left: 22 23 24 25, on right: 19 24 25
+ALLVARS (54)
+    on left: 26 27, on right: 26 52
+TYPE (55)
+    on left: 28 29 30, on right: 19 20
+EXP (56)
+    on left: 31 32 33 34 35 36 37 38 39 40 41 42 43 44, on right: 12
+    26 27 31 32 33 34 35 36 37 38 39 40 41 42 47 50
+BOUCLE (57)
+    on left: 47, on right: 7
+@1 (58)
+    on left: 45, on right: 47
+@2 (59)
+    on left: 46, on right: 47
+IF (60)
+    on left: 50, on right: 8
+@3 (61)
+    on left: 48, on right: 50
+@4 (62)
+    on left: 49, on right: 50
+INPUT (63)
+    on left: 51, on right: 9
+OUTPUT (64)
+    on left: 52, on right: 10
+
+
+State 0
+
+    0 $accept: . s $end
+
+    mc_lang  shift, and go to state 1
+
+    s  go to state 2
+
+
+State 1
+
+    1 s: mc_lang . id mc_dec BIB VAR mc_fdec mc_deb INST mc_fin
+
+    id  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: s . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 s: mc_lang id . mc_dec BIB VAR mc_fdec mc_deb INST mc_fin
+
+    mc_dec  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: s $end .
+
+    $default  accept
+
+
+State 5
+
+    1 s: mc_lang id mc_dec . BIB VAR mc_fdec mc_deb INST mc_fin
+
+    bib_inOut   shift, and go to state 6
+    bib_tab     shift, and go to state 7
+    bib_arithm  shift, and go to state 8
+
+    $default  reduce using rule 5 (BIB)
+
+    BIB  go to state 9
+
+
+State 6
+
+    2 BIB: bib_inOut . BIB
+
+    bib_inOut   shift, and go to state 6
+    bib_tab     shift, and go to state 7
+    bib_arithm  shift, and go to state 8
+
+    $default  reduce using rule 5 (BIB)
+
+    BIB  go to state 10
+
+
+State 7
+
+    3 BIB: bib_tab . BIB
+
+    bib_inOut   shift, and go to state 6
+    bib_tab     shift, and go to state 7
+    bib_arithm  shift, and go to state 8
+
+    $default  reduce using rule 5 (BIB)
+
+    BIB  go to state 11
+
+
+State 8
+
+    4 BIB: bib_arithm . BIB
+
+    bib_inOut   shift, and go to state 6
+    bib_tab     shift, and go to state 7
+    bib_arithm  shift, and go to state 8
+
+    $default  reduce using rule 5 (BIB)
+
+    BIB  go to state 12
+
+
+State 9
+
+    1 s: mc_lang id mc_dec BIB . VAR mc_fdec mc_deb INST mc_fin
+
+    mc_int     shift, and go to state 13
+    mc_float   shift, and go to state 14
+    mc_string  shift, and go to state 15
+
+    $default  reduce using rule 21 (VAR)
+
+    VAR   go to state 16
+    TYPE  go to state 17
+
+
+State 10
+
+    2 BIB: bib_inOut BIB .
+
+    $default  reduce using rule 2 (BIB)
+
+
+State 11
+
+    3 BIB: bib_tab BIB .
+
+    $default  reduce using rule 3 (BIB)
+
+
+State 12
+
+    4 BIB: bib_arithm BIB .
+
+    $default  reduce using rule 4 (BIB)
+
+
+State 13
+
+   28 TYPE: mc_int .
+
+    $default  reduce using rule 28 (TYPE)
+
+
+State 14
+
+   29 TYPE: mc_float .
+
+    $default  reduce using rule 29 (TYPE)
+
+
+State 15
+
+   30 TYPE: mc_string .
+
+    $default  reduce using rule 30 (TYPE)
+
+
+State 16
+
+    1 s: mc_lang id mc_dec BIB VAR . mc_fdec mc_deb INST mc_fin
+
+    mc_fdec  shift, and go to state 18
+
+
+State 17
+
+   19 VAR: TYPE . mc_vardec VARS ';' VAR
+   20    | TYPE . mc_vardec mc_CONST id ';' VAR
+
+    mc_vardec  shift, and go to state 19
+
+
+State 18
+
+    1 s: mc_lang id mc_dec BIB VAR mc_fdec . mc_deb INST mc_fin
+
+    mc_deb  shift, and go to state 20
+
+
+State 19
+
+   19 VAR: TYPE mc_vardec . VARS ';' VAR
+   20    | TYPE mc_vardec . mc_CONST id ';' VAR
+
+    id        shift, and go to state 21
+    mc_CONST  shift, and go to state 22
+
+    VARS  go to state 23
+
+
+State 20
+
+    1 s: mc_lang id mc_dec BIB VAR mc_fdec mc_deb . INST mc_fin
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 29
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 21
+
+   22 VARS: id .
+   23     | id . '[' mc_IntVal ']'
+
+    '['  shift, and go to state 36
+
+    $default  reduce using rule 22 (VARS)
+
+
+State 22
+
+   20 VAR: TYPE mc_vardec mc_CONST . id ';' VAR
+
+    id  shift, and go to state 37
+
+
+State 23
+
+   19 VAR: TYPE mc_vardec VARS . ';' VAR
+   24 VARS: VARS . ',' id
+   25     | VARS . ',' id '[' mc_IntVal ']'
+
+    ','  shift, and go to state 38
+    ';'  shift, and go to state 39
+
+
+State 24
+
+   13 IDF: id .
+   14    | id . '[' IDF ']'
+   15    | id . '[' mc_IntVal ']'
+
+    '['  shift, and go to state 40
+
+    $default  reduce using rule 13 (IDF)
+
+
+State 25
+
+   47 BOUCLE: mc_While . @1 '(' EXP ')' @2 mc_Faire INST mc_Fait
+
+    $default  reduce using rule 45 (@1)
+
+    @1  go to state 41
+
+
+State 26
+
+   50 IF: mc_EXECUT . @3 INST mc_IF @4 '(' EXP ')'
+
+    $default  reduce using rule 48 (@3)
+
+    @3  go to state 42
+
+
+State 27
+
+   51 INPUT: mc_input . '(' mc_StringVal ')' ';'
+
+    '('  shift, and go to state 43
+
+
+State 28
+
+   52 OUTPUT: mc_Output . '(' ALLVARS ')' ';'
+
+    '('  shift, and go to state 44
+
+
+State 29
+
+    1 s: mc_lang id mc_dec BIB VAR mc_fdec mc_deb INST . mc_fin
+
+    mc_fin  shift, and go to state 45
+
+
+State 30
+
+    6 INST: INST_AFF . INST
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 46
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 31
+
+   12 INST_AFF: IDF . aff EXP ';'
+
+    aff  shift, and go to state 47
+
+
+State 32
+
+    7 INST: BOUCLE . INST
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 48
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 33
+
+    8 INST: IF . INST
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 49
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 34
+
+    9 INST: INPUT . INST
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 50
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 35
+
+   10 INST: OUTPUT . INST
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 51
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 36
+
+   23 VARS: id '[' . mc_IntVal ']'
+
+    mc_IntVal  shift, and go to state 52
+
+
+State 37
+
+   20 VAR: TYPE mc_vardec mc_CONST id . ';' VAR
+
+    ';'  shift, and go to state 53
+
+
+State 38
+
+   24 VARS: VARS ',' . id
+   25     | VARS ',' . id '[' mc_IntVal ']'
+
+    id  shift, and go to state 54
+
+
+State 39
+
+   19 VAR: TYPE mc_vardec VARS ';' . VAR
+
+    mc_int     shift, and go to state 13
+    mc_float   shift, and go to state 14
+    mc_string  shift, and go to state 15
+
+    $default  reduce using rule 21 (VAR)
+
+    VAR   go to state 55
+    TYPE  go to state 17
+
+
+State 40
+
+   14 IDF: id '[' . IDF ']'
+   15    | id '[' . mc_IntVal ']'
+
+    id         shift, and go to state 24
+    mc_IntVal  shift, and go to state 56
+
+    IDF  go to state 57
+
+
+State 41
+
+   47 BOUCLE: mc_While @1 . '(' EXP ')' @2 mc_Faire INST mc_Fait
+
+    '('  shift, and go to state 58
+
+
+State 42
+
+   50 IF: mc_EXECUT @3 . INST mc_IF @4 '(' EXP ')'
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 59
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 43
+
+   51 INPUT: mc_input '(' . mc_StringVal ')' ';'
+
+    mc_StringVal  shift, and go to state 60
+
+
+State 44
+
+   52 OUTPUT: mc_Output '(' . ALLVARS ')' ';'
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF      go to state 66
+    VAL      go to state 67
+    ALLVARS  go to state 68
+    EXP      go to state 69
+
+
+State 45
+
+    1 s: mc_lang id mc_dec BIB VAR mc_fdec mc_deb INST mc_fin .
+
+    $default  reduce using rule 1 (s)
+
+
+State 46
+
+    6 INST: INST_AFF INST .
+
+    $default  reduce using rule 6 (INST)
+
+
+State 47
+
+   12 INST_AFF: IDF aff . EXP ';'
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 70
+
+
+State 48
+
+    7 INST: BOUCLE INST .
+
+    $default  reduce using rule 7 (INST)
+
+
+State 49
+
+    8 INST: IF INST .
+
+    $default  reduce using rule 8 (INST)
+
+
+State 50
+
+    9 INST: INPUT INST .
+
+    $default  reduce using rule 9 (INST)
+
+
+State 51
+
+   10 INST: OUTPUT INST .
+
+    $default  reduce using rule 10 (INST)
+
+
+State 52
+
+   23 VARS: id '[' mc_IntVal . ']'
+
+    ']'  shift, and go to state 71
+
+
+State 53
+
+   20 VAR: TYPE mc_vardec mc_CONST id ';' . VAR
+
+    mc_int     shift, and go to state 13
+    mc_float   shift, and go to state 14
+    mc_string  shift, and go to state 15
+
+    $default  reduce using rule 21 (VAR)
+
+    VAR   go to state 72
+    TYPE  go to state 17
+
+
+State 54
+
+   24 VARS: VARS ',' id .
+   25     | VARS ',' id . '[' mc_IntVal ']'
+
+    '['  shift, and go to state 73
+
+    $default  reduce using rule 24 (VARS)
+
+
+State 55
+
+   19 VAR: TYPE mc_vardec VARS ';' VAR .
+
+    $default  reduce using rule 19 (VAR)
+
+
+State 56
+
+   15 IDF: id '[' mc_IntVal . ']'
+
+    ']'  shift, and go to state 74
+
+
+State 57
+
+   14 IDF: id '[' IDF . ']'
+
+    ']'  shift, and go to state 75
+
+
+State 58
+
+   47 BOUCLE: mc_While @1 '(' . EXP ')' @2 mc_Faire INST mc_Fait
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 76
+
+
+State 59
+
+   50 IF: mc_EXECUT @3 INST . mc_IF @4 '(' EXP ')'
+
+    mc_IF  shift, and go to state 77
+
+
+State 60
+
+   51 INPUT: mc_input '(' mc_StringVal . ')' ';'
+
+    ')'  shift, and go to state 78
+
+
+State 61
+
+   16 VAL: mc_IntVal .
+
+    $default  reduce using rule 16 (VAL)
+
+
+State 62
+
+   17 VAL: mc_ReelVal .
+
+    $default  reduce using rule 17 (VAL)
+
+
+State 63
+
+   18 VAL: mc_StringVal .
+
+    $default  reduce using rule 18 (VAL)
+
+
+State 64
+
+   42 EXP: '(' . EXP ')'
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 79
+
+
+State 65
+
+   41 EXP: '-' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 80
+
+
+State 66
+
+   43 EXP: IDF .
+
+    $default  reduce using rule 43 (EXP)
+
+
+State 67
+
+   44 EXP: VAL .
+
+    $default  reduce using rule 44 (EXP)
+
+
+State 68
+
+   26 ALLVARS: ALLVARS . ',' EXP
+   52 OUTPUT: mc_Output '(' ALLVARS . ')' ';'
+
+    ','  shift, and go to state 81
+    ')'  shift, and go to state 82
+
+
+State 69
+
+   27 ALLVARS: EXP .
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    '+'   shift, and go to state 83
+    '-'   shift, and go to state 84
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+    $default  reduce using rule 27 (ALLVARS)
+
+
+State 70
+
+   12 INST_AFF: IDF aff EXP . ';'
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    '+'   shift, and go to state 83
+    '-'   shift, and go to state 84
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+    ';'   shift, and go to state 93
+
+
+State 71
+
+   23 VARS: id '[' mc_IntVal ']' .
+
+    $default  reduce using rule 23 (VARS)
+
+
+State 72
+
+   20 VAR: TYPE mc_vardec mc_CONST id ';' VAR .
+
+    $default  reduce using rule 20 (VAR)
+
+
+State 73
+
+   25 VARS: VARS ',' id '[' . mc_IntVal ']'
+
+    mc_IntVal  shift, and go to state 94
+
+
+State 74
+
+   15 IDF: id '[' mc_IntVal ']' .
+
+    $default  reduce using rule 15 (IDF)
+
+
+State 75
+
+   14 IDF: id '[' IDF ']' .
+
+    $default  reduce using rule 14 (IDF)
+
+
+State 76
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+   47 BOUCLE: mc_While @1 '(' EXP . ')' @2 mc_Faire INST mc_Fait
+
+    ')'   shift, and go to state 95
+    '+'   shift, and go to state 83
+    '-'   shift, and go to state 84
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+
+State 77
+
+   50 IF: mc_EXECUT @3 INST mc_IF . @4 '(' EXP ')'
+
+    $default  reduce using rule 49 (@4)
+
+    @4  go to state 96
+
+
+State 78
+
+   51 INPUT: mc_input '(' mc_StringVal ')' . ';'
+
+    ';'  shift, and go to state 97
+
+
+State 79
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+   42    | '(' EXP . ')'
+
+    ')'   shift, and go to state 98
+    '+'   shift, and go to state 83
+    '-'   shift, and go to state 84
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+
+State 80
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+   41    | '-' EXP .
+
+    $default  reduce using rule 41 (EXP)
+
+
+State 81
+
+   26 ALLVARS: ALLVARS ',' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 99
+
+
+State 82
+
+   52 OUTPUT: mc_Output '(' ALLVARS ')' . ';'
+
+    ';'  shift, and go to state 100
+
+
+State 83
+
+   31 EXP: EXP '+' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 101
+
+
+State 84
+
+   32 EXP: EXP '-' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 102
+
+
+State 85
+
+   33 EXP: EXP '*' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 103
+
+
+State 86
+
+   34 EXP: EXP '/' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 104
+
+
+State 87
+
+   35 EXP: EXP '>' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 105
+
+
+State 88
+
+   36 EXP: EXP '<' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 106
+
+
+State 89
+
+   37 EXP: EXP '=' . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 107
+
+
+State 90
+
+   38 EXP: EXP leOp . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 108
+
+
+State 91
+
+   39 EXP: EXP geOp . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 109
+
+
+State 92
+
+   40 EXP: EXP neOp . EXP
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 110
+
+
+State 93
+
+   12 INST_AFF: IDF aff EXP ';' .
+
+    $default  reduce using rule 12 (INST_AFF)
+
+
+State 94
+
+   25 VARS: VARS ',' id '[' mc_IntVal . ']'
+
+    ']'  shift, and go to state 111
+
+
+State 95
+
+   47 BOUCLE: mc_While @1 '(' EXP ')' . @2 mc_Faire INST mc_Fait
+
+    $default  reduce using rule 46 (@2)
+
+    @2  go to state 112
+
+
+State 96
+
+   50 IF: mc_EXECUT @3 INST mc_IF @4 . '(' EXP ')'
+
+    '('  shift, and go to state 113
+
+
+State 97
+
+   51 INPUT: mc_input '(' mc_StringVal ')' ';' .
+
+    $default  reduce using rule 51 (INPUT)
+
+
+State 98
+
+   42 EXP: '(' EXP ')' .
+
+    $default  reduce using rule 42 (EXP)
+
+
+State 99
+
+   26 ALLVARS: ALLVARS ',' EXP .
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    '+'   shift, and go to state 83
+    '-'   shift, and go to state 84
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+    $default  reduce using rule 26 (ALLVARS)
+
+
+State 100
+
+   52 OUTPUT: mc_Output '(' ALLVARS ')' ';' .
+
+    $default  reduce using rule 52 (OUTPUT)
+
+
+State 101
+
+   31 EXP: EXP . '+' EXP
+   31    | EXP '+' EXP .
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+    $default  reduce using rule 31 (EXP)
+
+
+State 102
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   32    | EXP '-' EXP .
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+    $default  reduce using rule 32 (EXP)
+
+
+State 103
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   33    | EXP '*' EXP .
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+    $default  reduce using rule 33 (EXP)
+
+
+State 104
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   34    | EXP '/' EXP .
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+    $default  reduce using rule 34 (EXP)
+
+
+State 105
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   35    | EXP '>' EXP .
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    $default  reduce using rule 35 (EXP)
+
+
+State 106
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   36    | EXP '<' EXP .
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    $default  reduce using rule 36 (EXP)
+
+
+State 107
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   37    | EXP '=' EXP .
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    $default  reduce using rule 37 (EXP)
+
+
+State 108
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   38    | EXP leOp EXP .
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+
+    $default  reduce using rule 38 (EXP)
+
+
+State 109
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   39    | EXP geOp EXP .
+   40    | EXP . neOp EXP
+
+    $default  reduce using rule 39 (EXP)
+
+
+State 110
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+   40    | EXP neOp EXP .
+
+    $default  reduce using rule 40 (EXP)
+
+
+State 111
+
+   25 VARS: VARS ',' id '[' mc_IntVal ']' .
+
+    $default  reduce using rule 25 (VARS)
+
+
+State 112
+
+   47 BOUCLE: mc_While @1 '(' EXP ')' @2 . mc_Faire INST mc_Fait
+
+    mc_Faire  shift, and go to state 114
+
+
+State 113
+
+   50 IF: mc_EXECUT @3 INST mc_IF @4 '(' . EXP ')'
+
+    id            shift, and go to state 24
+    mc_IntVal     shift, and go to state 61
+    mc_ReelVal    shift, and go to state 62
+    mc_StringVal  shift, and go to state 63
+    '('           shift, and go to state 64
+    '-'           shift, and go to state 65
+
+    IDF  go to state 66
+    VAL  go to state 67
+    EXP  go to state 115
+
+
+State 114
+
+   47 BOUCLE: mc_While @1 '(' EXP ')' @2 mc_Faire . INST mc_Fait
+
+    id         shift, and go to state 24
+    mc_While   shift, and go to state 25
+    mc_EXECUT  shift, and go to state 26
+    mc_input   shift, and go to state 27
+    mc_Output  shift, and go to state 28
+
+    $default  reduce using rule 11 (INST)
+
+    INST      go to state 116
+    INST_AFF  go to state 30
+    IDF       go to state 31
+    BOUCLE    go to state 32
+    IF        go to state 33
+    INPUT     go to state 34
+    OUTPUT    go to state 35
+
+
+State 115
+
+   31 EXP: EXP . '+' EXP
+   32    | EXP . '-' EXP
+   33    | EXP . '*' EXP
+   34    | EXP . '/' EXP
+   35    | EXP . '>' EXP
+   36    | EXP . '<' EXP
+   37    | EXP . '=' EXP
+   38    | EXP . leOp EXP
+   39    | EXP . geOp EXP
+   40    | EXP . neOp EXP
+   50 IF: mc_EXECUT @3 INST mc_IF @4 '(' EXP . ')'
+
+    ')'   shift, and go to state 117
+    '+'   shift, and go to state 83
+    '-'   shift, and go to state 84
+    '*'   shift, and go to state 85
+    '/'   shift, and go to state 86
+    '>'   shift, and go to state 87
+    '<'   shift, and go to state 88
+    '='   shift, and go to state 89
+    leOp  shift, and go to state 90
+    geOp  shift, and go to state 91
+    neOp  shift, and go to state 92
+
+
+State 116
+
+   47 BOUCLE: mc_While @1 '(' EXP ')' @2 mc_Faire INST . mc_Fait
+
+    mc_Fait  shift, and go to state 118
+
+
+State 117
+
+   50 IF: mc_EXECUT @3 INST mc_IF @4 '(' EXP ')' .
+
+    $default  reduce using rule 50 (IF)
+
+
+State 118
+
+   47 BOUCLE: mc_While @1 '(' EXP ')' @2 mc_Faire INST mc_Fait .
+
+    $default  reduce using rule 47 (BOUCLE)
