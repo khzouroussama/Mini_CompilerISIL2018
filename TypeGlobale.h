@@ -3,14 +3,9 @@
  */
 
 //#include <stdlib.h>
-// Declaration des Erreur
-#define RED   "\x1B[31m"
-#define GRN   "\x1B[32m"
-#define YEL   "\x1B[33m"
-#define BLU   "\x1B[34m"
-#define TLU   "\x1B[36m" //Blue Claire
-#define TLT   "\x1B[91m"
-#define RESET "\x1B[0m"
+#ifndef TYPE_G_H 
+#define TYPE_G_H
+
 
 typedef enum{
   ENTIER,
@@ -34,4 +29,4 @@ typedef struct tt{
 typedef typeGlobale* typeG;
 
 
-
+#endif

@@ -1,8 +1,6 @@
 %{
-  #include "synt.tab.h"
-  #include "LLC_liste.h"
-  #include "Pile.h"
-  #include "ERREURs.h"
+  #include "y.tab.h"
+  #include "LLC_Liste.h"
   #include "OperationTypeG.h"
   #include "TableDesSymbole.h"
   #include "Quadruplets.h"

@@ -1,5 +1,7 @@
 %{
   #include <stdio.h>
+  #include "Colors.h"
+  #include "ERREURs.h"
   int decBIB[3]={0,0,0}
       ,nb_lignes=1
       ,indiceQc =0
@@ -128,7 +130,6 @@ OUTPUT:mc_Output '(' ALLVARS ')' ';'
 %%
 main()
 {
-initERROR();
 yyparse();
 afficher();
 affQuadS();

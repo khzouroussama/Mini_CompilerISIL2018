@@ -20,7 +20,7 @@ LANGAGE Idd
 
 X:=2+2+3*2-3;
 
-While(( Css/(C+2) ) <= 2.4 )
+While(( Css/(C+C) ) <= 2.4 )
      Faire
         EXECUT
 			
